@@ -20,7 +20,7 @@ module.exports.videoUpload = async (req, res) => {
         fs.mkdirSync('.temp/uploads', { recursive: true });
     }
 
-    fs.writeFileSync(`.temp/uploads/${name}.mp4`, data);
+    fs.writeFileSync(`.temp/videos/${name}.mp4`, data);
 
     res.status(200);
     res.json({

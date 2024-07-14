@@ -108,6 +108,59 @@
                     }
                 }
             }
+        },
+        "/api/edit/video/merge": {
+            "post": {
+                "tags": [
+                    "Edit"
+                ],
+                "summary": "Merge video files",
+                "description": "Merge video files",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "The request body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/MergeRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Video merged successfully",
+                        "schema": {
+                            "$ref": "#/definitions/File"
+                        }
+                    },
+                    "404": {
+                        "description": "Video not found"
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "description": "The error message"
+                                },
+                                "error": {
+                                    "type": "string",
+                                    "description": "The error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -138,6 +191,18 @@
                 "end": {
                     "type": "string",
                     "description": "The end time of the trimmed video, in HH:MM:SS format"
+                }
+            }
+        },
+        "MergeRequest": {
+            "type": "object",
+            "properties": {
+                "fileIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The ids of the files to merge"
                 }
             }
         }
