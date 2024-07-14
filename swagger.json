@@ -15,6 +15,10 @@
         {
             "name": "Edit",
             "description": "Endpoints for editing files"
+        },
+        {
+            "name": "Downloads",
+            "description": "Endpoints for downloading files"
         }
     ],
     "schemes": [
@@ -158,6 +162,35 @@
                                 }
                             }
                         }
+                    }
+                }
+            }
+        },
+        "/api/downloads/video/{fileId}": {
+            "get": {
+                "tags": [
+                    "Downloads"
+                ],
+                "summary": "Download a video file",
+                "description": "Download a video file",
+                "produces": [
+                    "video/mp4"
+                ],
+                "parameters": [
+                    {
+                        "name": "fileId",
+                        "in": "path",
+                        "description": "The id of the video file to download",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Video downloaded successfully"
+                    },
+                    "404": {
+                        "description": "Video not found"
                     }
                 }
             }
