@@ -16,8 +16,8 @@ module.exports.videoUpload = async (req, res) => {
 
     let name = Math.random().toString(36).substring(7);
 
-    if (!fs.existsSync('.temp/uploads')) {
-        fs.mkdirSync('.temp/uploads', { recursive: true });
+    if (!fs.existsSync('.temp/videos')) {
+        fs.mkdirSync('.temp/videos', { recursive: true });
     }
 
     fs.writeFileSync(`.temp/videos/${name}.mp4`, data);

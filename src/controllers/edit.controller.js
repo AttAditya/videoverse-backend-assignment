@@ -15,6 +15,10 @@ module.exports.trim = async (req, res) => {
 
     let outName = Math.random().toString(36).substring(7);
     let outputFile = `.temp/videos/${outName}.mp4`;
+
+    if (!fs.existsSync('.temp/videos')) {
+        fs.mkdirSync('.temp/videos', { recursive: true });
+    }
     
     let startTime = new Date(`1970-01-01T${start}Z`);
     let endTime = new Date(`1970-01-01T${end}Z`);
@@ -22,7 +26,7 @@ module.exports.trim = async (req, res) => {
     let duration = new Date(endTime - startTime).toISOString();
     duration = duration.slice(11, -5);
 
-    let trimming = await videoUtils.trim(inputFile, outputFile, start, duration);
+    let trimming = videoUtils.trim(inputFile, outputFile, start, duration);
 
     trimming.then(() => {
         res.json({
@@ -55,7 +59,7 @@ module.exports.merge = async (req, res) => {
     let outName = Math.random().toString(36).substring(7);
     let outputFile = `.temp/videos/${outName}.mp4`;
 
-    let merging = await videoUtils.merge(inputFiles, outputFile);
+    let merging = videoUtils.merge(inputFiles, outputFile);
 
     merging.then(() => {
         res.json({
