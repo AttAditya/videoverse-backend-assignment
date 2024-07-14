@@ -1,0 +1,145 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Backend for Videoverse Backend Assignment",
+        "version": "1.0.0",
+        "title": "Videoverse Backend Assignment"
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "Uploads",
+            "description": "Endpoints for uploading files"
+        },
+        {
+            "name": "Edit",
+            "description": "Endpoints for editing files"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/api/uploads/video": {
+            "post": {
+                "tags": [
+                    "Uploads"
+                ],
+                "summary": "Upload a video file",
+                "description": "Upload a video file",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "The video file to upload",
+                        "required": true,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Video uploaded successfully",
+                        "schema": {
+                            "$ref": "#/definitions/File"
+                        }
+                    },
+                    "415": {
+                        "description": "Invalid file format"
+                    }
+                }
+            }
+        },
+        "/api/edit/video/trim": {
+            "post": {
+                "tags": [
+                    "Edit"
+                ],
+                "summary": "Trim a video file",
+                "description": "Trim a video file",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "The request body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/TrimRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Video trimmed successfully",
+                        "schema": {
+                            "$ref": "#/definitions/File"
+                        }
+                    },
+                    "404": {
+                        "description": "Video not found"
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "description": "The error message"
+                                },
+                                "error": {
+                                    "type": "string",
+                                    "description": "The error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "File": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "description": "The message"
+                },
+                "fileId": {
+                    "type": "string",
+                    "description": "The file ID"
+                }
+            }
+        },
+        "TrimRequest": {
+            "type": "object",
+            "properties": {
+                "fileId": {
+                    "type": "string",
+                    "description": "The id of the file to trim"
+                },
+                "start": {
+                    "type": "string",
+                    "description": "The start time of the trimmed video, in HH:MM:SS format"
+                },
+                "end": {
+                    "type": "string",
+                    "description": "The end time of the trimmed video, in HH:MM:SS format"
+                }
+            }
+        }
+    }
+}
