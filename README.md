@@ -30,8 +30,8 @@ This project provides REST APIs for handling video files, including uploading, t
 
 ### Prerequisites
 
-- Node.js (version X.Y.Z)
-- npm (version X.Y.Z)
+- Node.js (version 20.12.2)
+- npm (version 10.5.0)
 
 ### Installation
 
