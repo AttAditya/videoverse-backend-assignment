@@ -71,7 +71,7 @@ npm run dev
 API documentation is available via Swagger. Once the server is running, you can access it at:
 
 ```
-http://localhost:PORT/swagger
+http://localhost:PORT/api/docs
 ```
 
 ## Directory Structure
