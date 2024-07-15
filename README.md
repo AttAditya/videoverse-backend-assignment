@@ -53,6 +53,9 @@ This project provides REST APIs for handling video files, including uploading, t
     ```properties
     PORT=3000
     JWT_TOKEN_SECRET=your_secret
+    MAX_UPLOAD_SIZE=size_in_bytes
+    MIN_UPLOAD_DURATION=time_in_secs
+    MAX_UPLOAD_DURATION=time_in_secs
     ```
 
 ### Running the Server
