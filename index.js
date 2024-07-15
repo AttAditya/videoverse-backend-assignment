@@ -17,6 +17,10 @@ app.use(fileUpload({
 
 app.use('/api', apiRouter);
 
+app.get('/', (req, res) => {
+    res.send('Hello World, visit <a href="/api/docs">/api/docs</a> for API documentation');
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
