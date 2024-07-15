@@ -9,6 +9,10 @@
     "basePath": "/",
     "tags": [
         {
+            "name": "Auth",
+            "description": "Endpoints for authentication"
+        },
+        {
             "name": "Uploads",
             "description": "Endpoints for uploading files"
         },
@@ -25,6 +29,43 @@
         "http"
     ],
     "paths": {
+        "/api/auth/get-api-token": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Get an API token",
+                "description": "Get an API token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "The request body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/TokenRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "API token generated successfully",
+                        "schema": {
+                            "$ref": "#/definitions/TokenResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    }
+                }
+            }
+        },
         "/api/uploads/video": {
             "post": {
                 "tags": [
@@ -32,6 +73,11 @@
                 ],
                 "summary": "Upload a video file",
                 "description": "Upload a video file",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
                 "consumes": [
                     "multipart/form-data"
                 ],
@@ -67,6 +113,11 @@
                 ],
                 "summary": "Trim a video file",
                 "description": "Trim a video file",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
                 "consumes": [
                     "application/json"
                 ],
@@ -120,6 +171,11 @@
                 ],
                 "summary": "Merge video files",
                 "description": "Merge video files",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
                 "consumes": [
                     "application/json"
                 ],
@@ -197,6 +253,32 @@
         }
     },
     "definitions": {
+        "TokenRequest": {
+            "type": "object",
+            "properties": {
+                "tokenUser": {
+                    "type": "string",
+                    "description": "Any identifier for the user"
+                },
+                "expiresIn": {
+                    "type": "number",
+                    "description": "The token expiry time in seconds"
+                }
+            }
+        },
+        "TokenResponse": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string",
+                    "description": "The API token"
+                },
+                "expiresIn": {
+                    "type": "number",
+                    "description": "The token expiry time in seconds"
+                }
+            }
+        },
         "File": {
             "type": "object",
             "properties": {
@@ -238,6 +320,14 @@
                     "description": "The ids of the files to merge"
                 }
             }
+        }
+    },
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+            "description": "Example: Bearer abc123.pqr456.xyz789"
         }
     }
 }
