@@ -1,6 +1,6 @@
 # Videoverse Backend Assignment
 
-> Video Files REST API
+## Video Files REST API
 
 This project provides REST APIs for handling video files, including uploading, trimming, merging, and link sharing with time-based expiry.
 
