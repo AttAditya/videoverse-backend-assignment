@@ -1,6 +1,18 @@
 const ffmpeg = require('fluent-ffmpeg');
 const fs = require('fs');
 
+module.exports.getVideoInfo = async (inputFile) => {
+    return new Promise((resolve, reject) => {
+        ffmpeg.ffprobe(inputFile, (err, metadata) => {
+            if (err) {
+                reject(err);
+            }
+
+            resolve(metadata);
+        });
+    });
+}
+
 module.exports.trim = async (inputFile, outputFile, startTime, duration) => {
     let trimPromise = new Promise((resolve, reject) => {
         let video = ffmpeg(inputFile);
